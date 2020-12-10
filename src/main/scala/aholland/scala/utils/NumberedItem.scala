@@ -1,0 +1,8 @@
+package aholland.scala.utils
+
+case class NumberedItem[+T](offset: Int, item: T) {
+ def number: Int = offset + 1
+ def isFirst: Boolean = offset == 0
+ def isEven: Boolean = number % 2 == 0
+ def isOdd: Boolean = !isEven
+}
