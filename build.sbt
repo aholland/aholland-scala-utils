@@ -1,10 +1,10 @@
-name := "ants-scala-utils"
+name := "aholland-scala-utils"
 
 version := "0.1-SNAPSHOT"
 
 scalaVersion := "2.13.4"
 
-ThisBuild / organization := "aholland"
+organization := "aholland"
 
-ThisBuild / version      := "0.1-SNAPSHOT"
+version      := "0.1-SNAPSHOT"
 
