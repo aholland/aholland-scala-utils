@@ -107,10 +107,13 @@ package object utils {
  }
 
  /**
-  * For method flatten. So that a sequence of NumberedItem of type Option[B] can become sequence of NumberedItem of type B, with the None entries elided.
-  * Note: the numbers will still be in order but numbers will be missing where the items were None.
+  * Enclose the NumberedItem[Option[B]] in the Option it contains, so NumberedItem(Some(b)) becomes Some(NumberedItem(b)) and NumberedItem(None) becomes None.<br/>
+  * For method flatten. So that a sequence of NumberedItem of type Option[B] can become sequence of NumberedItem of type B, with the None entries elided.<br/>
+  * Note 1: The numbers will still be in order but numbers will be missing where the items were None.<br/>
+  * Note 2: Was implicit in Scala 2. Quite obscure and needs to be done differently in Scala 3 so making it explicit for now.<br/>
+  * TODO how to escape ]] ?
   */
- implicit def ni2to[B](ni: NumberedItem[Option[B]]): IterableOnce[NumberedItem[B]] = ni.item.mapOut(b => Some(ni.transform(_ => b)), None)
+ def enclose[B](ni: NumberedItem[Option[B]]): Option[NumberedItem[B]] = ni.item.mapOut(b => Some(ni.transform(_ => b)), None)
 
  implicit class WhereSplitter[+A](list: List[A]) {
   def splitAtIndexWhere(p: A => Boolean): Option[(List[A], List[A])] = {
