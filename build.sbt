@@ -1,5 +1,5 @@
 val scala3Version = "3.0.0-RC1"
-val scala2Version = "2.13.4"
+val scala2Version = "2.13.5"
 
 name := "aholland-scala-utils"
 
