@@ -13,7 +13,7 @@ object StringUtils {
  def concatenator(separator: String): (String, String) => String = {
   (a: String, b: String) => a + separator + b
  }
- def concord(number: Long, singularForm: String, pluralForm: String): String = if (number.abs == 1) singularForm else pluralForm
+ def concord(number: Long, singularForm: String, pluralForm: String): String = if number.abs == 1 then singularForm else pluralForm
  def doubleQuote(s: String): String = "\"" + s + "\""
  def filterOut(s: String, chars: String): String = s.filterNot(sChar => chars.indexOf(sChar) > -1)
 }

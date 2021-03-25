@@ -17,18 +17,18 @@ package object utils {
   def mapIn[B](f: A => B): Option[B] = option.map(f)
 
   //TODO use instead of map, everywhere
-  def mapOut[B](f: A => B, default: => B): B = if (option.isDefined) f(option.get) else default
+  def mapOut[B](f: A => B, default: => B): B = if option.isDefined then f(option.get) else default
 
   def flatMapIn[B, C](f: A => Option[B], sideEffect: => C = ()): Option[B] = { //sideEffect is really for logging
    val result = option.flatMap(f)
-   if (option.isEmpty) sideEffect
+   if option.isEmpty then sideEffect
    result
   }
 
   def flatMapOut[B](f: A => Option[B], default: B): B = option.flatMap(f).getOrElse(default)
 
   //TODO test default
-  def forDefined[U, V](sideEffect: A => U, default: => V = ()): Unit = if (option.isDefined) sideEffect(option.get) else default
+  def forDefined[U, V](sideEffect: A => U, default: => V = ()): Unit = if option.isDefined then sideEffect(option.get) else default
 
   def isSo(predicate: A => Boolean): Boolean = option.exists(predicate)
 
@@ -44,12 +44,12 @@ package object utils {
 
   def ifElse(condition: Option[A] => Boolean, alternativeOption: => Option[A]): Option[A] = ifElse(condition(option), alternativeOption)
 
-  def ifElse(condition: Boolean, alternativeOption: => Option[A]): Option[A] = if (condition) option else alternativeOption
+  def ifElse(condition: Boolean, alternativeOption: => Option[A]): Option[A] = if condition then option else alternativeOption
  }
 
  implicit class SingleTry[T](t: Try[T]) {
   def mapIn[U](f: T => U, opExceptor: Option[Throwable => Throwable] = None): Try[U] = {
-   if (t.isSuccess || opExceptor.isEmpty)
+   if t.isSuccess || opExceptor.isEmpty then
     t.map(f)
    else {
     Failure(opExceptor.get(t.failed.get))
@@ -90,13 +90,13 @@ package object utils {
  }
 
  implicit class BooleanOption(boolean: Boolean) {
-  def mapIn[T](code: => T): Option[T] = if (boolean) Some(code) else None
+  def mapIn[T](code: => T): Option[T] = if boolean then Some(code) else None
 
-  def flatMapIn[T](code: => Option[T]): Option[T] = if (boolean) code else None
+  def flatMapIn[T](code: => Option[T]): Option[T] = if boolean then code else None
 
-  def mapOut[T](code: => T, default: => T): T = if (boolean) code else default
+  def mapOut[T](code: => T, default: => T): T = if boolean then code else default
 
-  def flatMapOut[T](code: => Option[T], default: T): T = if (boolean) code.getOrElse(default) else default
+  def flatMapOut[T](code: => Option[T], default: T): T = if boolean then code.getOrElse(default) else default
  }
 
  implicit class PositionZipper[+A](seq: Seq[A]) {
@@ -118,12 +118,12 @@ package object utils {
  implicit class WhereSplitter[+A](list: List[A]) {
   def splitAtIndexWhere(p: A => Boolean): Option[(List[A], List[A])] = {
    val index = list.indexWhere(p)
-   if (index < 0) None else Some(list.splitAt(index))
+   if index < 0 then None else Some(list.splitAt(index))
   }
 
   def splitAfterLastIndexWhere(p: A => Boolean): Option[(List[A], List[A])] = {
    val index = list.lastIndexWhere(p)
-   if (index < 0) None else Some(list.splitAt(index + 1))
+   if index < 0 then None else Some(list.splitAt(index + 1))
   }
  }
 
@@ -161,7 +161,7 @@ package object utils {
  class SeqHolder[T](val sequence: Seq[T]) {
   def positionOf(elem: T): Int = sequence.indexOf(elem) + 1
 
-  def asOption: Option[Seq[T]] = if (sequence.isEmpty) None else Some(sequence)
+  def asOption: Option[Seq[T]] = if sequence.isEmpty then None else Some(sequence)
  }
 
  implicit class SeqHolderForSeq[T](s: Seq[T]) extends SeqHolder[T](s)
@@ -194,7 +194,7 @@ package object utils {
  }
 
  implicit class ListRecursionHelper[A](list: List[A]) {
-  def ~++(condition: Boolean, otherList: => List[A]): List[A] = if (condition) list ++ otherList else list
+  def ~++(condition: Boolean, otherList: => List[A]): List[A] = if condition then list ++ otherList else list
 
   def ~++(condition: List[A] => Boolean, otherList: => List[A]): List[A] = ~++(condition(list), otherList)
 
