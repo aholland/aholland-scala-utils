@@ -1,7 +1,7 @@
-package aholland.scala.utils
+package io.github.aholland.scala.utils
 
 import java.util.Collections
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 object JavaUtils:
  def unmodifiableList[E](item: E*): java.util.List[E] = Collections.unmodifiableList(item.toList.asJava)

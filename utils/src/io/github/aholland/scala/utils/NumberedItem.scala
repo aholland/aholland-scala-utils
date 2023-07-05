@@ -1,4 +1,4 @@
-package aholland.scala.utils
+package io.github.aholland.scala.utils
 
 case class NumberedItem[+T](offset: Int, item: T):
  def number: Int = offset + 1

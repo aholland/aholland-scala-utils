@@ -1,4 +1,4 @@
-package aholland.scala
+package io.github.aholland.scala
 
 import java.time.{LocalDate, YearMonth}
 import scala.collection.mutable.ListBuffer

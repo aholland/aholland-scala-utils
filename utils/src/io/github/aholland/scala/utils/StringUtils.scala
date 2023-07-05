@@ -1,4 +1,4 @@
-package aholland.scala.utils
+package io.github.aholland.scala.utils
 
 object StringUtils:
  def indent(indents: Int): String = "   " * indents

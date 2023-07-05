@@ -1,4 +1,4 @@
-package aholland.scala.utils
+package io.github.aholland.scala.utils
 
 case class Interval[T](lower: T, upper: T, inclusiveLower: Boolean = true, inclusiveUpper: Boolean = true)(implicit n: Fractional[T]) {
  require(n.lteq(lower, upper), s"Lower bound cannot be larger than upper bound. lower=$lower, upper=$upper")
